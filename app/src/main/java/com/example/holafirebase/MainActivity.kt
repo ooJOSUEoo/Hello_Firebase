@@ -30,13 +30,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         val dataRef = database.child("hola_firebase")//nombre del hijo de la raiz (rama)
-            .child("data")//el hijo de la rama
+            .child("data")//el hijo de la rama (lo llamaremos hoja)
 
         dataRef.addValueEventListener(listener)
 
-        findViewById<MaterialButton>(R.id.btnSent).setOnClickListener { //evento para el boton al hacer click
+        val btnSent = findViewById<MaterialButton>(R.id.btnSent) //crear valiable para el btnSent
+        btnSent.setOnClickListener { //evento para el boton al hacer click
             val data = findViewById<TextInputEditText>(R.id.etData).text.toString()
-            dataRef.setValue(data) //remplazar lo que existe en el hijo de la rama por el data
+            dataRef.setValue(data) //remplazar lo que existe en la hoja por el data
+        }
+
+        btnSent.setOnLongClickListener { //evento para cuendo se mantiene pulsado
+            dataRef.removeValue() //se elimina el valor de la hoja, si solo hay una se elimina toda la rama
+            true
         }
     }
 }
