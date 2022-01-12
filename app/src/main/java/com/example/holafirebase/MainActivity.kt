@@ -3,6 +3,8 @@ package com.example.holafirebase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -31,5 +33,10 @@ class MainActivity : AppCompatActivity() {
             .child("data")//el hijo de la rama
 
         dataRef.addValueEventListener(listener)
+
+        findViewById<MaterialButton>(R.id.btnSent).setOnClickListener { //evento para el boton al hacer click
+            val data = findViewById<TextInputEditText>(R.id.etData).text.toString()
+            dataRef.setValue(data) //remplazar lo que existe en el hijo de la rama por el data
+        }
     }
 }
