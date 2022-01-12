@@ -43,6 +43,15 @@ class MainActivity : AppCompatActivity() {
         btnSent.setOnClickListener { //evento para el boton al hacer click
             val data = findViewById<TextInputEditText>(R.id.etData).text.toString()
             dataRef.setValue(data) //remplazar lo que existe en la hoja por el data
+                .addOnSuccessListener { //cuando hay un exito en la axion
+                    Toast.makeText(this@MainActivity,"Enviado...",Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { //cuando hay un error en la axion
+                    Toast.makeText(this@MainActivity,"Error al enviar.",Toast.LENGTH_SHORT).show()
+                }
+                .addOnCompleteListener { //cuando la axion ya se completo
+                    //Toast.makeText(this@MainActivity,"Terminado.",Toast.LENGTH_SHORT).show()
+                }
         }
 
         btnSent.setOnLongClickListener { //evento para cuendo se mantiene pulsado
